@@ -18,15 +18,18 @@ class Cake
     public List<string> Tags { get; set; }
     public string Photo { get; set; }
 }
+class DecorElements
+{
+    public string Question { get; set; }
+    public string Tag { get; set; }
+    public double Index { get; set; }
+}
 
 class Program
 {
     static double reasonablenessIndex = 0;
     static void Main()
-    {
-        //string jsonPath = "data.json";
-        //var cakes = JsonConvert.DeserializeObject<List<Cake>>(File.ReadAllText(jsonPath));
-
+    {       
         //var questions = new Dictionary<string, string>
         {
             //{"Вам нравятся квадратные торты?", "square_shape"},
@@ -91,6 +94,8 @@ class Program
             //  //    {"Хотите украсить торт живыми цветами?", "fresh_flowers"},
             ////    {"Предпочитаете съедобные цветы в декоре?", "edible_flowers"},
         };
+
+      
 
         var firstRoot = new QuestionNode//форма 
         {
@@ -169,531 +174,7 @@ class Program
             }
         };
 
-        static QuestionNode SecondTreeRoot()
-        {
-            return new QuestionNode
-            {
-
-                Question = "Торт для дня рождения?",
-                Tags = new List<string> { "birthday" },
-                YesBranch = new QuestionNode
-                {
-                    Question = "Этот торт для ребёнка?",
-                    Tags = new List<string> { "child" },
-                    YesBranch = new QuestionNode
-                    {
-                        Question = "Торт должен соответствовать конкретной тематике?",
-                        Tags = new List<string> { "themed_cake" },
-
-                        YesBranch = new QuestionNode
-                        {
-                            Question = "Торт должен быть вдохновлён природой (горный, лесной, морской стиль)?",
-                            Tags = new List<string> { "nature_cake" },
-
-                            YesBranch = new QuestionNode
-                            {
-                                Question = "Торт для охотника?",
-                                Tags = new List<string> { "hunter" },
-                                YesBranch = ThirdTreeRoot(),
-                                NoBranch = new QuestionNode
-                                {
-                                    Question = "Торт для рыбака?",
-                                    Tags = new List<string> { "fisherman" },
-                                    YesBranch = ThirdTreeRoot(),
-                                    NoBranch = ThirdTreeRoot(),
-                                }
-                            },
-                            NoBranch = new QuestionNode
-                            {
-                                Question = "Торт для футбольного фаната?",
-                                Tags = new List<string> { "football_fan" },
-                                YesBranch = ThirdTreeRoot(),
-                                NoBranch = new QuestionNode
-                                {
-                                    Question = "Хотите торт, вдохновлённый вашим любимым фильмом, сериалом или мультфильмом?",
-                                    Tags = new List<string> { "movie_inspired" },
-                                    YesBranch = ThirdTreeRoot(),
-                                    NoBranch = new QuestionNode
-                                    {
-                                        Question = "Нравятся торты в стиле известных брендов (например, Chanel, Louis Vuitton, Gucci)?",
-                                        Tags = new List<string> { "brand_style" },
-
-                                        YesBranch = ThirdTreeRoot(),
-                                        NoBranch = ThirdTreeRoot(),
-                                    },
-                                }
-                            }
-
-                        },
-                        NoBranch = ThirdTreeRoot(),
-                    },
-                    NoBranch = new QuestionNode
-                    {
-                        Question = "Торт для женщины?",
-                        Tags = new List<string> { "women" },
-
-                        YesBranch = new QuestionNode
-                        {
-                            Question = "Торт должен соответствовать конкретной тематике?",
-                            Tags = new List<string> { "themed_cake" },
-
-                            YesBranch = new QuestionNode
-                            {
-                                Question = "Торт должен быть вдохновлён природой (горный, лесной, морской стиль)?",
-                                Tags = new List<string> { "nature_cake" },
-
-                                YesBranch = new QuestionNode
-                                {
-                                    Question = "Торт для охотника?",
-                                    Tags = new List<string> { "hunter" },
-                                    YesBranch = ThirdTreeRoot(),
-                                    NoBranch = new QuestionNode
-                                    {
-                                        Question = "Торт для рыбака?",
-                                        Tags = new List<string> { "fisherman" },
-
-                                        YesBranch = ThirdTreeRoot(),
-                                        NoBranch = ThirdTreeRoot(),
-                                    }
-                                },
-                                NoBranch = new QuestionNode
-                                {
-                                    Question = "Торт для футбольного фаната?",
-                                    Tags = new List<string> { "football_fan" },
-                                    YesBranch = ThirdTreeRoot(),
-                                    NoBranch = new QuestionNode
-                                    {
-                                        Question = "Хотите торт, вдохновлённый вашим любимым фильмом, сериалом или мультфильмом?",
-                                        Tags = new List<string> { "movie_inspired" },
-                                        YesBranch = ThirdTreeRoot(),
-                                        NoBranch = new QuestionNode
-                                        {
-                                            Question = "Нравятся торты в стиле известных брендов (например, Chanel, Louis Vuitton, Gucci)?",
-                                            Tags = new List<string> { "brand_style" },
-
-                                            YesBranch = ThirdTreeRoot(),
-                                            NoBranch = ThirdTreeRoot(),
-                                        },
-                                    }
-                                }
-
-                            },
-                            NoBranch = ThirdTreeRoot(),
-                        },
-
-                        NoBranch = new QuestionNode
-                        {
-                            Question = "Торт для мужчины?",
-                            Tags = new List<string> { "men" },
-                            YesBranch = new QuestionNode
-                            {
-                                Question = "Торт должен соответствовать конкретной тематике?",
-                                Tags = new List<string> { "themed_cake" },
-
-                                YesBranch = new QuestionNode
-                                {
-                                    Question = "Торт должен быть вдохновлён природой (горный, лесной, морской стиль)?",
-                                    Tags = new List<string> { "nature_cake" },
-
-                                    YesBranch = new QuestionNode
-                                    {
-                                        Question = "Торт для охотника?",
-                                        Tags = new List<string> { "hunter" },
-                                        YesBranch = ThirdTreeRoot(),
-                                        NoBranch = new QuestionNode
-                                        {
-                                            Question = "Торт для рыбака?",
-                                            Tags = new List<string> { "fisherman" },
-
-                                            YesBranch = ThirdTreeRoot(),
-                                            NoBranch = ThirdTreeRoot(),
-                                        }
-                                    },
-                                    NoBranch = new QuestionNode
-                                    {
-                                        Question = "Торт для футбольного фаната?",
-                                        Tags = new List<string> { "football_fan" },
-                                        YesBranch = ThirdTreeRoot(),
-                                        NoBranch = new QuestionNode
-                                        {
-                                            Question = "Хотите торт, вдохновлённый вашим любимым фильмом, сериалом или мультфильмом?",
-                                            Tags = new List<string> { "movie_inspired" },
-                                            YesBranch = ThirdTreeRoot(),
-                                            NoBranch = new QuestionNode
-                                            {
-                                                Question = "Нравятся торты в стиле известных брендов (например, Chanel, Louis Vuitton, Gucci)?",
-                                                Tags = new List<string> { "brand_style" },
-
-                                                YesBranch = ThirdTreeRoot(),
-                                                NoBranch = ThirdTreeRoot(),
-                                            },
-                                        }
-                                    }
-
-                                },
-                                NoBranch = ThirdTreeRoot(),
-                            },
-                            NoBranch = ThirdTreeRoot(),
-                        }
-                    }
-
-                },
-                NoBranch = new QuestionNode
-                {
-                    Question = "Этот торт для свадьбы или годовщины?",
-                    Tags = new List<string> { "wedding" },
-                    YesBranch = ThirdTreeRoot(),
-                    NoBranch = new QuestionNode
-                    {
-                        Question = "\"Это торт для сообщения какой-то новости?",
-                        Tags = new List<string> { "news_announcement" },
-                        YesBranch = new QuestionNode
-                        {
-                            Question = "Это торт для предложения?",
-                            Tags = new List<string> { "proposal" },
-                            YesBranch = ThirdTreeRoot(),
-                            NoBranch = new QuestionNode
-                            {
-                                Question = "Это гендерный торт?",
-                                Tags = new List<string> { "gender_reveal" },
-
-                                YesBranch = ThirdTreeRoot(),
-                                NoBranch = ThirdTreeRoot(),
-                            }
-                        },
-                        NoBranch = ThirdTreeRoot(),
-
-                    },
-                }
-
-            };
-        }
-
-        static QuestionNode ThirdTreeRoot()//надпись на торте
-        {
-            return new QuestionNode
-            {
-                Question = "Надпись на самом торте — важный элемент?",
-                Tags = new List<string> { "inscription_on_cake" },
-                YesBranch = new QuestionNode
-                {
-                    Question = "Нравятся торты с тайным посланием (сжигается верхний слой)?",
-                    Tags = new List<string> { "secret_message" },
-                    YesBranch = ForthTreeRoot(),
-                    NoBranch = new QuestionNode
-                    {
-                        Question = "Топпер — обязательный элемент для вашего торта?",
-                        Tags = new List<string> { "topper" },
-
-                        YesBranch = new QuestionNode
-                        {
-                            Question = "Хотите украсить торт топпером сверху?",
-                            Tags = new List<string> { "topper_on_top" },
-
-                            YesBranch = ForthTreeRoot(),
-                            NoBranch = new QuestionNode
-                            {
-                                Question = "Предпочитаете топпер, закреплённый сбоку?",
-                                Tags = new List<string> { "topper_on_side" },
-
-                                YesBranch = ForthTreeRoot(),
-                                NoBranch = ForthTreeRoot(),
-
-                            }
-
-                        },
-                        NoBranch = ForthTreeRoot(),
-                    }
-                },
-                NoBranch = new QuestionNode
-                {
-                    Question = "Хотели бы разместить фотографию виновника торжества на торте?",
-                    Tags = new List<string> { "photo_on_cake" },
-                    YesBranch = new QuestionNode
-                    {
-                        Question = "Торт должен быть шуточный?",
-                        Tags = new List<string> { "funny_cake" },
-
-
-                        YesBranch = ForthTreeRoot(),
-                        NoBranch = ForthTreeRoot(),
-                    },
-                    NoBranch = ForthTreeRoot(),
-                }
-            };
-        };
-
-        static QuestionNode ForthTreeRoot()//декор основы
-        {
-            return new QuestionNode
-            {
-
-                Question = "Хотите, чтобы торт выглядел 'дорого' и роскошно?",
-                Tags = new List<string> { "luxurious" },
-                YesBranch = new QuestionNode
-                {
-
-                    Question = "Хотите, чтобы декор был насыщенным и детализированным?",
-                    Tags = new List<string> { "detailed_decor" },
-                    YesBranch = new QuestionNode
-                    {
-                        Question = "Хотите торт в стиле ламбет (объемный, с рюшами и узорами)?",
-                        Tags = new List<string> { "lambert" },
-                        //YesBranch = new QuestionNode
-                        //{                        },
-                        NoBranch = new QuestionNode
-                        {
-                            Question = "Нравится, когда торт расписан узорами или рисунками?",
-                            Tags = new List<string> { "detailed_decor" },
-                            //YesBranch = new QuestionNode
-                            //{ },
-                            NoBranch = new QuestionNode
-                            {
-                                Question = "Вам ближе нежные пастельные оттенки?",
-                                Tags = new List<string> { "pastel_colors" },
-                                YesBranch = new QuestionNode
-                                {
-
-                                    Question = "Хотите, чтобы торт был белым?",
-                                    Tags = new List<string> { "white" },
-
-                                },
-                                NoBranch = new QuestionNode
-                                {
-                                    Question = "Нравятся яркие, сочные цвета в оформлении?",
-                                    Tags = new List<string> { "bright_colors" },
-                                    YesBranch = new QuestionNode
-                                    {
-
-                                        Question = "Предпочитаете глубокие, тёмные тона?",
-                                        Tags = new List<string> { "dark_colors" },
-
-                                        YesBranch = new QuestionNode
-                                        {
-
-                                            Question = "Предпочитаете чёрный торт?",
-                                            Tags = new List<string> { "black" },
-
-                                        },
-
-                                        //NoBranch = new QuestionNode
-                                        //{
-                                        //    //switch
-
-                                        //},
-                                    },
-                                    //NoBranch = new QuestionNode
-                                    //{
-                                    //    //switch
-
-                                    //},
-                                },
-                            },
-                        },
-                    },
-                    NoBranch = new QuestionNode
-                    {
-                        Question = "Предпочитаете однотонное оформление торта?",
-                        Tags = new List<string> { "solid_color" },
-
-                        YesBranch = new QuestionNode
-                        {
-                            Question = "Хотите торт с бархатным (велюровым) покрытием?",
-                            Tags = new List<string> { "velvet" },
-
-                            //YesBranch = new QuestionNode
-                            //{
-                            //    //switch
-                            //},
-                            NoBranch = new QuestionNode
-                            {
-                                Question = " Хотите торт в стиле 'голый торт'(naked cake) с минимальным покрытием ? ",
-                                Tags = new List<string> { "naked" },
-
-                                //YesBranch = new QuestionNode
-                                //{
-                                //    //switch
-                                //},
-                                NoBranch = new QuestionNode
-                                {
-                                    Question = "Нравятся зеркальные (глянцевые) глазури?",
-                                    Tags = new List<string> { "mirror_glaze" },
-                                    //switch
-                                }
-
-                            }
-
-                        },
-                        NoBranch = new QuestionNode
-                        {
-                            Question = "Хотите, чтобы торт был украшен мраморным эффеком?",
-                            Tags = new List<string> { "marble_effect" },
-                            //YesBranch = new QuestionNode
-                            //{
-                            //    //switch
-                            //},
-                            NoBranch = new QuestionNode
-                            {
-                                Question = "Хотите, чтобы торт был с эффектом омбре (плавный переход цвета)?",
-                                Tags = new List<string> { "ombre" },
-                                //switch
-                            }
-
-                        }
-                    }
-                },
-                NoBranch = new QuestionNode
-                {
-                    Question = "Вам по душе минималистичный стиль?",
-                    Tags = new List<string> { "minimalism" },
-                    YesBranch = new QuestionNode
-                    {
-                        Question = "Вам ближе нежные пастельные оттенки?",
-                        Tags = new List<string> { "pastel_colors" },
-                        YesBranch = new QuestionNode
-                        {
-
-                            Question = "Хотите, чтобы торт был белым?",
-                            Tags = new List<string> { "white" },
-                            //switch
-                        },
-                        NoBranch = new QuestionNode
-                        {
-                            Question = "Нравятся яркие, сочные цвета в оформлении?",
-                            Tags = new List<string> { "bright_colors" },
-                            YesBranch = new QuestionNode
-                            {
-
-                                Question = "Предпочитаете глубокие, тёмные тона?",
-                                Tags = new List<string> { "dark_colors" },
-
-                                YesBranch = new QuestionNode
-                                {
-
-                                    Question = "Предпочитаете чёрный торт?",
-                                    Tags = new List<string> { "black" },
-                                    //switch
-                                },
-
-                                //NoBranch = new QuestionNode
-                                //{
-                                //    //switch
-
-                                //},
-                            },
-                            //NoBranch = new QuestionNode
-                            //{
-                            //    //switch
-
-                            //},
-                        },
-
-
-                    },
-                    NoBranch = new QuestionNode
-                    {
-                        Question = "Предпочитаете однотонное оформление торта?",
-                        Tags = new List<string> { "solid_color" },
-
-                        YesBranch = new QuestionNode
-                        {
-                            Question = "Хотите торт с бархатным (велюровым) покрытием?",
-                            Tags = new List<string> { "velvet" },
-
-                            //YesBranch = new QuestionNode
-                            //{
-                            //    //switch
-                            //},
-                            NoBranch = new QuestionNode
-                            {
-                                Question = " Хотите торт в стиле 'голый торт'(naked cake) с минимальным покрытием ? ",
-                                Tags = new List<string> { "naked" },
-
-                                //YesBranch = new QuestionNode
-                                //{
-                                //    //switch
-                                //},
-                                NoBranch = new QuestionNode
-                                {
-                                    Question = "Нравятся зеркальные (глянцевые) глазури?",
-                                    Tags = new List<string> { "mirror_glaze" },
-                                    //switch
-                                }
-
-                            }
-
-                        },
-                        NoBranch = new QuestionNode
-                        {
-                            Question = "Хотите, чтобы торт был украшен мраморным эффеком?",
-                            Tags = new List<string> { "marble_effect" },
-                            //YesBranch = new QuestionNode
-                            //{
-                            //    //switch
-                            //},
-                            NoBranch = new QuestionNode
-                            {
-                                Question = "Хотите, чтобы торт был с эффектом омбре (плавный переход цвета)?",
-                                Tags = new List<string> { "ombre" },
-                                //switch
-                            }
-
-                        }
-                    }
-                }
-            };
-        };
-
-        //var tagWeights = new Dictionary<string, double>();
-
-        //foreach (var question in questions)
-        //{
-        //    Console.WriteLine($"{question.Key} (Да/Нет/Возможно/Не знаю)");
-        //    string answer = Console.ReadLine()?.Trim().ToLower();
-
-        //    double weight = answer switch
-        //    {
-        //        "да" => 1.0,
-        //        "нет" => -1.0,
-        //        "возможно" => 0.5,
-        //        "не знаю" => 0.0,
-        //        _ => 0.0
-        //    };
-
-        //    tagWeights[question.Value] = weight;
-        //}
-
-        //var cakeProbabilities = new Dictionary<int, double>();
-
-        //foreach (var cake in cakes)
-        //{
-        //    double probability = 0;
-
-        //    foreach (var tag in cake.Tags)
-        //    {
-        //        if (tagWeights.ContainsKey(tag))
-        //        {
-        //            probability += tagWeights[tag];
-        //        }
-        //    }
-
-
-        //    probability = (probability + tagWeights.Count) / (2 * tagWeights.Count);
-        //    cakeProbabilities[cake.Id] = probability;
-        //}
-
-
-        //var topCakes = cakeProbabilities.OrderByDescending(c => c.Value).Take(3);
-
-        //Dictionary<string, int> tagWeights = new Dictionary<string, int>();
-        //TraverseTree(firstRoot, tagWeights);
-
-        //var topTags = tagWeights.OrderByDescending(kvp => kvp.Value);
-        //Console.WriteLine("Топ тегов:");
-        //foreach (var tag in topTags)
-        //{
-        //    Console.WriteLine($"{tag.Key}: {tag.Value}");
-        //}
+    
 
         Dictionary<string, double> tagWeights = new Dictionary<string, double>();
         TraverseTree(firstRoot, tagWeights);
@@ -706,14 +187,7 @@ class Program
         }
 
         var topCakes = LoadCakes("data.json");
-        RecommendCakes(topCakes, finalScores);
-
-        //Console.WriteLine("\nРекомендуемые торты:");
-        //foreach (var cake in topCakes)
-        //{
-        //    var cakeInfo = cakes.First(c => c.Id == cake.Key);
-        //    Console.WriteLine($"ID: {cakeInfo.Id}, Вероятность: {cake.Value:P}, Ссылка: {cakeInfo.Photo}");
-        //}
+        RecommendCakes(topCakes, finalScores);      
 
     }
 
@@ -764,8 +238,7 @@ class Program
 
     static List<Cake> LoadCakes(string path)
     {
-        string jsonPath = "data.json";
-        var cakes = JsonConvert.DeserializeObject<List<Cake>>(File.ReadAllText(jsonPath));
+        var cakes = JsonConvert.DeserializeObject<List<Cake>>(File.ReadAllText("data.json"));
         return cakes;
     }
 
@@ -826,4 +299,487 @@ class Program
         }
         return reasonablenessIndex;
     }
+
+    static QuestionNode SecondTreeRoot()
+    {
+        return new QuestionNode
+        {
+
+            Question = "Торт для дня рождения?",
+            Tags = new List<string> { "birthday" },
+            YesBranch = new QuestionNode
+            {
+                Question = "Этот торт для ребёнка?",
+                Tags = new List<string> { "child" },
+                YesBranch = new QuestionNode
+                {
+                    Question = "Торт должен соответствовать конкретной тематике?",
+                    Tags = new List<string> { "themed_cake" },
+
+                    YesBranch = new QuestionNode
+                    {
+                        Question = "Торт должен быть вдохновлён природой (горный, лесной, морской стиль)?",
+                        Tags = new List<string> { "nature_cake" },
+
+                        YesBranch = new QuestionNode
+                        {
+                            Question = "Торт для охотника?",
+                            Tags = new List<string> { "hunter" },
+                            YesBranch = ThirdTreeRoot(),
+                            NoBranch = new QuestionNode
+                            {
+                                Question = "Торт для рыбака?",
+                                Tags = new List<string> { "fisherman" },
+                                YesBranch = ThirdTreeRoot(),
+                                NoBranch = ThirdTreeRoot(),
+                            }
+                        },
+                        NoBranch = new QuestionNode
+                        {
+                            Question = "Торт для футбольного фаната?",
+                            Tags = new List<string> { "football_fan" },
+                            YesBranch = ThirdTreeRoot(),
+                            NoBranch = new QuestionNode
+                            {
+                                Question = "Хотите торт, вдохновлённый вашим любимым фильмом, сериалом или мультфильмом?",
+                                Tags = new List<string> { "movie_inspired" },
+                                YesBranch = ThirdTreeRoot(),
+                                NoBranch = new QuestionNode
+                                {
+                                    Question = "Нравятся торты в стиле известных брендов (например, Chanel, Louis Vuitton, Gucci)?",
+                                    Tags = new List<string> { "brand_style" },
+
+                                    YesBranch = ThirdTreeRoot(),
+                                    NoBranch = ThirdTreeRoot(),
+                                },
+                            }
+                        }
+
+                    },
+                    NoBranch = ThirdTreeRoot(),
+                },
+                NoBranch = new QuestionNode
+                {
+                    Question = "Торт для женщины?",
+                    Tags = new List<string> { "women" },
+
+                    YesBranch = new QuestionNode
+                    {
+                        Question = "Торт должен соответствовать конкретной тематике?",
+                        Tags = new List<string> { "themed_cake" },
+
+                        YesBranch = new QuestionNode
+                        {
+                            Question = "Торт должен быть вдохновлён природой (горный, лесной, морской стиль)?",
+                            Tags = new List<string> { "nature_cake" },
+
+                            YesBranch = new QuestionNode
+                            {
+                                Question = "Торт для охотника?",
+                                Tags = new List<string> { "hunter" },
+                                YesBranch = ThirdTreeRoot(),
+                                NoBranch = new QuestionNode
+                                {
+                                    Question = "Торт для рыбака?",
+                                    Tags = new List<string> { "fisherman" },
+
+                                    YesBranch = ThirdTreeRoot(),
+                                    NoBranch = ThirdTreeRoot(),
+                                }
+                            },
+                            NoBranch = new QuestionNode
+                            {
+                                Question = "Торт для футбольного фаната?",
+                                Tags = new List<string> { "football_fan" },
+                                YesBranch = ThirdTreeRoot(),
+                                NoBranch = new QuestionNode
+                                {
+                                    Question = "Хотите торт, вдохновлённый вашим любимым фильмом, сериалом или мультфильмом?",
+                                    Tags = new List<string> { "movie_inspired" },
+                                    YesBranch = ThirdTreeRoot(),
+                                    NoBranch = new QuestionNode
+                                    {
+                                        Question = "Нравятся торты в стиле известных брендов (например, Chanel, Louis Vuitton, Gucci)?",
+                                        Tags = new List<string> { "brand_style" },
+
+                                        YesBranch = ThirdTreeRoot(),
+                                        NoBranch = ThirdTreeRoot(),
+                                    },
+                                }
+                            }
+
+                        },
+                        NoBranch = ThirdTreeRoot(),
+                    },
+
+                    NoBranch = new QuestionNode
+                    {
+                        Question = "Торт для мужчины?",
+                        Tags = new List<string> { "men" },
+                        YesBranch = new QuestionNode
+                        {
+                            Question = "Торт должен соответствовать конкретной тематике?",
+                            Tags = new List<string> { "themed_cake" },
+
+                            YesBranch = new QuestionNode
+                            {
+                                Question = "Торт должен быть вдохновлён природой (горный, лесной, морской стиль)?",
+                                Tags = new List<string> { "nature_cake" },
+
+                                YesBranch = new QuestionNode
+                                {
+                                    Question = "Торт для охотника?",
+                                    Tags = new List<string> { "hunter" },
+                                    YesBranch = ThirdTreeRoot(),
+                                    NoBranch = new QuestionNode
+                                    {
+                                        Question = "Торт для рыбака?",
+                                        Tags = new List<string> { "fisherman" },
+
+                                        YesBranch = ThirdTreeRoot(),
+                                        NoBranch = ThirdTreeRoot(),
+                                    }
+                                },
+                                NoBranch = new QuestionNode
+                                {
+                                    Question = "Торт для футбольного фаната?",
+                                    Tags = new List<string> { "football_fan" },
+                                    YesBranch = ThirdTreeRoot(),
+                                    NoBranch = new QuestionNode
+                                    {
+                                        Question = "Хотите торт, вдохновлённый вашим любимым фильмом, сериалом или мультфильмом?",
+                                        Tags = new List<string> { "movie_inspired" },
+                                        YesBranch = ThirdTreeRoot(),
+                                        NoBranch = new QuestionNode
+                                        {
+                                            Question = "Нравятся торты в стиле известных брендов (например, Chanel, Louis Vuitton, Gucci)?",
+                                            Tags = new List<string> { "brand_style" },
+
+                                            YesBranch = ThirdTreeRoot(),
+                                            NoBranch = ThirdTreeRoot(),
+                                        },
+                                    }
+                                }
+
+                            },
+                            NoBranch = ThirdTreeRoot(),
+                        },
+                        NoBranch = ThirdTreeRoot(),
+                    }
+                }
+
+            },
+            NoBranch = new QuestionNode
+            {
+                Question = "Этот торт для свадьбы или годовщины?",
+                Tags = new List<string> { "wedding" },
+                YesBranch = ThirdTreeRoot(),
+                NoBranch = new QuestionNode
+                {
+                    Question = "\"Это торт для сообщения какой-то новости?",
+                    Tags = new List<string> { "news_announcement" },
+                    YesBranch = new QuestionNode
+                    {
+                        Question = "Это торт для предложения?",
+                        Tags = new List<string> { "proposal" },
+                        YesBranch = ThirdTreeRoot(),
+                        NoBranch = new QuestionNode
+                        {
+                            Question = "Это гендерный торт?",
+                            Tags = new List<string> { "gender_reveal" },
+
+                            YesBranch = ThirdTreeRoot(),
+                            NoBranch = ThirdTreeRoot(),
+                        }
+                    },
+                    NoBranch = ThirdTreeRoot(),
+
+                },
+            }
+
+        };
+    }
+
+    static QuestionNode ThirdTreeRoot()//надпись на торте
+    {
+        return new QuestionNode
+        {
+            Question = "Надпись на самом торте — важный элемент?",
+            Tags = new List<string> { "inscription_on_cake" },
+            YesBranch = new QuestionNode
+            {
+                Question = "Нравятся торты с тайным посланием (сжигается верхний слой)?",
+                Tags = new List<string> { "secret_message" },
+                YesBranch = ForthTreeRoot(),
+                NoBranch = new QuestionNode
+                {
+                    Question = "Топпер — обязательный элемент для вашего торта?",
+                    Tags = new List<string> { "topper" },
+
+                    YesBranch = new QuestionNode
+                    {
+                        Question = "Хотите украсить торт топпером сверху?",
+                        Tags = new List<string> { "topper_on_top" },
+
+                        YesBranch = ForthTreeRoot(),
+                        NoBranch = new QuestionNode
+                        {
+                            Question = "Предпочитаете топпер, закреплённый сбоку?",
+                            Tags = new List<string> { "topper_on_side" },
+
+                            YesBranch = ForthTreeRoot(),
+                            NoBranch = ForthTreeRoot(),
+
+                        }
+
+                    },
+                    NoBranch = ForthTreeRoot(),
+                }
+            },
+            NoBranch = new QuestionNode
+            {
+                Question = "Хотели бы разместить фотографию виновника торжества на торте?",
+                Tags = new List<string> { "photo_on_cake" },
+                YesBranch = new QuestionNode
+                {
+                    Question = "Торт должен быть шуточный?",
+                    Tags = new List<string> { "funny_cake" },
+
+
+                    YesBranch = ForthTreeRoot(),
+                    NoBranch = ForthTreeRoot(),
+                },
+                NoBranch = ForthTreeRoot(),
+            }
+        };
+    }
+
+    static QuestionNode ForthTreeRoot()//декор основы
+    {
+        return new QuestionNode
+        {
+
+            Question = "Хотите, чтобы торт выглядел 'дорого' и роскошно?",
+            Tags = new List<string> { "luxurious" },
+            YesBranch = new QuestionNode
+            {
+
+                Question = "Хотите, чтобы декор был насыщенным и детализированным?",
+                Tags = new List<string> { "detailed_decor" },
+                YesBranch = new QuestionNode
+                {
+                    Question = "Хотите торт в стиле ламбет (объемный, с рюшами и узорами)?",
+                    Tags = new List<string> { "lambert" },
+                    //YesBranch = new QuestionNode
+                    //{                        },
+                    NoBranch = new QuestionNode
+                    {
+                        Question = "Нравится, когда торт расписан узорами или рисунками?",
+                        Tags = new List<string> { "detailed_decor" },
+                        //YesBranch = new QuestionNode
+                        //{ },
+                        NoBranch = new QuestionNode
+                        {
+                            Question = "Вам ближе нежные пастельные оттенки?",
+                            Tags = new List<string> { "pastel_colors" },
+                            YesBranch = new QuestionNode
+                            {
+
+                                Question = "Хотите, чтобы торт был белым?",
+                                Tags = new List<string> { "white" },
+
+                            },
+                            NoBranch = new QuestionNode
+                            {
+                                Question = "Нравятся яркие, сочные цвета в оформлении?",
+                                Tags = new List<string> { "bright_colors" },
+                                YesBranch = new QuestionNode
+                                {
+
+                                    Question = "Предпочитаете глубокие, тёмные тона?",
+                                    Tags = new List<string> { "dark_colors" },
+
+                                    YesBranch = new QuestionNode
+                                    {
+
+                                        Question = "Предпочитаете чёрный торт?",
+                                        Tags = new List<string> { "black" },
+
+                                    },
+
+                                    //NoBranch = new QuestionNode
+                                    //{
+                                    //    //switch
+
+                                    //},
+                                },
+                                //NoBranch = new QuestionNode
+                                //{
+                                //    //switch
+
+                                //},
+                            },
+                        },
+                    },
+                },
+                NoBranch = new QuestionNode
+                {
+                    Question = "Предпочитаете однотонное оформление торта?",
+                    Tags = new List<string> { "solid_color" },
+
+                    YesBranch = new QuestionNode
+                    {
+                        Question = "Хотите торт с бархатным (велюровым) покрытием?",
+                        Tags = new List<string> { "velvet" },
+
+                        //YesBranch = new QuestionNode
+                        //{
+                        //    //switch
+                        //},
+                        NoBranch = new QuestionNode
+                        {
+                            Question = " Хотите торт в стиле 'голый торт'(naked cake) с минимальным покрытием ? ",
+                            Tags = new List<string> { "naked" },
+
+                            //YesBranch = new QuestionNode
+                            //{
+                            //    //switch
+                            //},
+                            NoBranch = new QuestionNode
+                            {
+                                Question = "Нравятся зеркальные (глянцевые) глазури?",
+                                Tags = new List<string> { "mirror_glaze" },
+                                //switch
+                            }
+
+                        }
+
+                    },
+                    NoBranch = new QuestionNode
+                    {
+                        Question = "Хотите, чтобы торт был украшен мраморным эффеком?",
+                        Tags = new List<string> { "marble_effect" },
+                        //YesBranch = new QuestionNode
+                        //{
+                        //    //switch
+                        //},
+                        NoBranch = new QuestionNode
+                        {
+                            Question = "Хотите, чтобы торт был с эффектом омбре (плавный переход цвета)?",
+                            Tags = new List<string> { "ombre" },
+                            //switch
+                        }
+
+                    }
+                }
+            },
+            NoBranch = new QuestionNode
+            {
+                Question = "Вам по душе минималистичный стиль?",
+                Tags = new List<string> { "minimalism" },
+                YesBranch = new QuestionNode
+                {
+                    Question = "Вам ближе нежные пастельные оттенки?",
+                    Tags = new List<string> { "pastel_colors" },
+                    YesBranch = new QuestionNode
+                    {
+
+                        Question = "Хотите, чтобы торт был белым?",
+                        Tags = new List<string> { "white" },
+                        //switch
+                    },
+                    NoBranch = new QuestionNode
+                    {
+                        Question = "Нравятся яркие, сочные цвета в оформлении?",
+                        Tags = new List<string> { "bright_colors" },
+                        YesBranch = new QuestionNode
+                        {
+
+                            Question = "Предпочитаете глубокие, тёмные тона?",
+                            Tags = new List<string> { "dark_colors" },
+
+                            YesBranch = new QuestionNode
+                            {
+
+                                Question = "Предпочитаете чёрный торт?",
+                                Tags = new List<string> { "black" },
+                                //switch
+                            },
+
+                            //NoBranch = new QuestionNode
+                            //{
+                            //    //switch
+
+                            //},
+                        },
+                        //NoBranch = new QuestionNode
+                        //{
+                        //    //switch
+
+                        //},
+                    },
+
+
+                },
+                NoBranch = new QuestionNode
+                {
+                    Question = "Предпочитаете однотонное оформление торта?",
+                    Tags = new List<string> { "solid_color" },
+
+                    YesBranch = new QuestionNode
+                    {
+                        Question = "Хотите торт с бархатным (велюровым) покрытием?",
+                        Tags = new List<string> { "velvet" },
+
+                        //YesBranch = new QuestionNode
+                        //{
+                        //    //switch
+                        //},
+                        NoBranch = new QuestionNode
+                        {
+                            Question = " Хотите торт в стиле 'голый торт'(naked cake) с минимальным покрытием ? ",
+                            Tags = new List<string> { "naked" },
+
+                            //YesBranch = new QuestionNode
+                            //{
+                            //    //switch
+                            //},
+                            NoBranch = new QuestionNode
+                            {
+                                Question = "Нравятся зеркальные (глянцевые) глазури?",
+                                Tags = new List<string> { "mirror_glaze" },
+                                //switch
+                            }
+
+                        }
+
+                    },
+                    NoBranch = new QuestionNode
+                    {
+                        Question = "Хотите, чтобы торт был украшен мраморным эффеком?",
+                        Tags = new List<string> { "marble_effect" },
+                        //YesBranch = new QuestionNode
+                        //{
+                        //    //switch
+                        //},
+                        NoBranch = new QuestionNode
+                        {
+                            Question = "Хотите, чтобы торт был с эффектом омбре (плавный переход цвета)?",
+                            Tags = new List<string> { "ombre" },
+                            //switch
+                        }
+
+                    }
+                }
+            }
+        };
+    }
+
+    static List<DecorElements> DecorElementsList()
+    {
+        var decorElements = JsonConvert.DeserializeObject<List<DecorElements>>(File.ReadAllText("decorElements.json"));
+        return decorElements;
+    }
+
 }
+
