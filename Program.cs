@@ -25,78 +25,12 @@ class DecorElements
     public double Index { get; set; }
 }
 
+
 class Program
 {
     static double reasonablenessIndex = 0;
     static void Main()
-    {       
-        //var questions = new Dictionary<string, string>
-        {
-            //{"Вам нравятся квадратные торты?", "square_shape"},
-            //  {"Предпочитаете классическую круглую форму?", "round_shape"},
-
-            //    {"Торт для дня рождения?", "birthday"},
-            //    {"Этот торт для свадьбы или годовщины?", "wedding"},
-            //    {"Вы хотите одноярусный торт?", "single_tier"},
-            //    {"Вам по душе минималистичный стиль?", "minimalism"},
-            //   {"Хотите, чтобы декор был насыщенным и детализированным?", "detailed_decor"},
-            //    {"Нравятся яркие, сочные цвета в оформлении?", "bright_colors"},
-            //    {"Вам ближе нежные пастельные оттенки?", "pastel_colors"},
-            //    {"Предпочитаете глубокие, тёмные тона?", "dark_colors"},
-            //    {"Хотите украсить торт топпером сверху?", "topper_on_top"},
-            //    {"Предпочитаете топпер, закреплённый сбоку?", "topper_on_side"},
-            //    {"Топпер — обязательный элемент для вашего торта?", "topper"},
-            //          {"Надпись на торте — важный элемент?", "inscription_on_cake"},
-            //         {"Этот торт для ребёнка?", "child"},
-            //   {"Хотите торт в стиле ламбет (объемный, с рюшами и узорами)?", "lambert"},
-            //       {"Предпочитаете однотонное оформление торта?", "solid_color"},
-            //    {"Хотите торт с бархатным (велюровым) покрытием?", "velvet"},
-            //    {"Нравится, когда торт расписан узорами или рисунками?", "detailed_decor"},
-            //    {"Торт для рыбака?", "fisherman"},
-            //    {"Торт для мужчины?", "man"},
-            //    {"Торт для охотника?", "hunter"},
-            //    {"Торт для футбольного фаната?", "football_fan"},
-            //    {"Торт для женщины?", "woman"},
-            //    {"Хотите, чтобы торт был белым?", "white"},
-            //    {"Предпочитаете чёрный торт?", "black"},
-            // {"Хотели бы разместить фотографию виновника торжества на торте?", "photo_on_cake"},
-            //    {"Нравятся торты с тайным посланием (сжигается верхний слой)?", "secret_message"},
-            //    {"Это гендерный торт?", "gender_reveal"},
-            //    {"Это торт для предложения?", "proposal"},
-            //    {"Это торт для сообщения какой-то новости?", "news_announcement"},
-            //    {"Предпочли бы высокий вытянутый торт?", "tall"},
-            //    {"Вам нравятся торты необычной формы (например, сердце, цифра, геометрия)?", "unique_shape"},
-            //   {"Хотите торт в стиле 'голый торт' (naked cake) с минимальным покрытием?", "naked"},
-            //    {"Нравятся зеркальные (глянцевые) глазури?", "mirror_glaze"},
-            //    {"Хотите, чтобы торт был украшен мраморным эффеком?", "marble_effect"},
-            //          {"Хотите, чтобы торт выглядел 'дорого' и роскошно?", "luxurious"},
-            //    {"Хотите, чтобы торт был с эффектом омбре (плавный переход цвета)?", "ombre"},
-            //   {"В вашем торте может быть фальш-ярус?", "fake_tier"},
-            //           {"Торт должен соответствовать конкретной тематике?", "themed_cake"},
-            //    {"Торт должен быть вдохновлён природой (горный, лесной, морской стиль)?", "nature_cake"},
-            //    {"Торт должен быть шуточный?", "funny_cake"},
-            //    {"Хотите торт, вдохновлённый вашим любимым фильмом, сериалом или мультфильмом?", "movie_inspired"},
-            //    {"Нравятся торты в стиле известных брендов (например, Chanel, Louis Vuitton, Gucci)?", "brand_style"}
-
-            ////Вопросы ниже не структурированы ещё
-
-            //  //    {"Хотите, чтобы торт был украшен карамельными элементами?", "caramel_decor"},
-            ////    {"Хотите, чтобы торт был украшен шоколадным декором?", "chocolate_decor"},
-            ////    {"Нравятся торты с металлическим декором (золотые, серебряные элементы)?", "metallic_decor"},
-            //     //    {"В вашем торте есть светящиеся элементы (огоньки, светящийся ярус)?", "glowing_cake"},
-            ////    {"В вашем торте используется декор 'жемчужные бусы'?", "pearl_beads"},
-            // //    {"Хотите добавить блестки, создающие эффект сияния?", "glitter"},
-            ////    {"Украшение свежими ягодами — ваш выбор?", "fresh_berries"},
-            //     //    {"Хотите добавить блестки, создающие эффект сияния?", "glitter"},
-            ////    {"Украшение свежими ягодами — ваш выбор?", "fresh_berries"},
-            //   //    {"Нравятся шоколадные подтеки на торте?", "chocolate_drips"},
-            ////    {"Хотите фигурку сверху в качестве декора?", "cake_figurine"},
-            //  //    {"Хотите украсить торт живыми цветами?", "fresh_flowers"},
-            ////    {"Предпочитаете съедобные цветы в декоре?", "edible_flowers"},
-        };
-
-      
-
+    {
         var firstRoot = new QuestionNode//форма 
         {
 
@@ -174,12 +108,16 @@ class Program
             }
         };
 
-    
-
         Dictionary<string, double> tagWeights = new Dictionary<string, double>();
         TraverseTree(firstRoot, tagWeights);
 
+
+        List<DecorElements> decorations = DecorElementsList();
+        CalculateReasonablessIndex(decorations, tagWeights);
+
+
         var finalScores = CalculateTagProbabilities(tagWeights);
+
         Console.WriteLine("\nФинальные вероятности тегов:");
         foreach (var pair in finalScores.OrderByDescending(p => p.Value).Take(5))
         {
@@ -187,7 +125,7 @@ class Program
         }
 
         var topCakes = LoadCakes("data.json");
-        RecommendCakes(topCakes, finalScores);      
+        RecommendCakes(topCakes, finalScores);
 
     }
 
@@ -208,7 +146,7 @@ class Program
             _ => 0.0
         };
 
-        reasonablenessIndex = CalculateReasonablessIndex(node, tagWeights, delta, answer);
+        reasonablenessIndex = CalculateReasonablessIndexValue(node, tagWeights, delta, answer);
 
         foreach (var tag in node.Tags)
         {
@@ -222,6 +160,7 @@ class Program
         else if (answer == "нет" || answer == "не знаю")
             TraverseTree(node.NoBranch, tagWeights);
     }
+
     static Dictionary<string, double> CalculateTagProbabilities(Dictionary<string, double> tagWeights)
     {
         int totalTags = tagWeights.Count;
@@ -273,7 +212,7 @@ class Program
         }
     }
 
-    static double CalculateReasonablessIndex(QuestionNode node, Dictionary<string, double> tagWeights, double delta, string answer)
+    static double CalculateReasonablessIndexValue(QuestionNode node, Dictionary<string, double> tagWeights, double delta, string answer)
     {
         foreach (var tag in node.Tags)
         {
@@ -779,6 +718,39 @@ class Program
     {
         var decorElements = JsonConvert.DeserializeObject<List<DecorElements>>(File.ReadAllText("decorElements.json"));
         return decorElements;
+    }
+
+    static void CalculateReasonablessIndex(List<DecorElements> decorElements, Dictionary<string, double> tagWeights)
+    {
+        while (reasonablenessIndex > 0)
+        {
+            foreach (var element in decorElements)
+            {
+                Console.WriteLine(element.Question);
+                Console.Write("(Да/Возможно/Нет/Не знаю): ");
+                string answer = Console.ReadLine().Trim().ToLower();
+
+                double delta = answer switch
+                {
+                    "да" => -element.Index,
+                    "возможно" => -element.Index * 0.5,
+                    _ => 0.0
+                };
+
+                reasonablenessIndex += delta;
+
+                if (!string.IsNullOrEmpty(element.Tag))
+                {
+                    if (!tagWeights.ContainsKey(element.Tag))
+                        tagWeights[element.Tag] = 0.0;
+
+                    tagWeights[element.Tag] += -delta / element.Index; 
+                }
+
+                if (reasonablenessIndex <= 0)
+                    break;
+            }
+        }
     }
 
 }
