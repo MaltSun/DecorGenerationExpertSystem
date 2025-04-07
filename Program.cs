@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using Newtonsoft.Json;
 
 class QuestionNode
@@ -20,11 +21,11 @@ class Cake
 
 class Program
 {
+    static double reasonablenessIndex = 0;
     static void Main()
     {
-        string jsonPath = "data.json";
-        var cakes = JsonConvert.DeserializeObject<List<Cake>>(File.ReadAllText(jsonPath));
-
+        //string jsonPath = "data.json";
+        //var cakes = JsonConvert.DeserializeObject<List<Cake>>(File.ReadAllText(jsonPath));
 
         //var questions = new Dictionary<string, string>
         {
@@ -74,7 +75,7 @@ class Program
             //    {"Хотите торт, вдохновлённый вашим любимым фильмом, сериалом или мультфильмом?", "movie_inspired"},
             //    {"Нравятся торты в стиле известных брендов (например, Chanel, Louis Vuitton, Gucci)?", "brand_style"}
 
-            ////Вопросы ниже не струтурированы ещё
+            ////Вопросы ниже не структурированы ещё
 
             //  //    {"Хотите, чтобы торт был украшен карамельными элементами?", "caramel_decor"},
             ////    {"Хотите, чтобы торт был украшен шоколадным декором?", "chocolate_decor"},
@@ -426,10 +427,12 @@ class Program
         {
             return new QuestionNode
             {
+
                 Question = "Хотите, чтобы торт выглядел 'дорого' и роскошно?",
                 Tags = new List<string> { "luxurious" },
                 YesBranch = new QuestionNode
                 {
+
                     Question = "Хотите, чтобы декор был насыщенным и детализированным?",
                     Tags = new List<string> { "detailed_decor" },
                     YesBranch = new QuestionNode
@@ -453,7 +456,7 @@ class Program
 
                                     Question = "Хотите, чтобы торт был белым?",
                                     Tags = new List<string> { "white" },
-                                    
+
                                 },
                                 NoBranch = new QuestionNode
                                 {
@@ -470,7 +473,7 @@ class Program
 
                                             Question = "Предпочитаете чёрный торт?",
                                             Tags = new List<string> { "black" },
-                                            
+
                                         },
 
                                         //NoBranch = new QuestionNode
@@ -682,15 +685,28 @@ class Program
 
         //var topCakes = cakeProbabilities.OrderByDescending(c => c.Value).Take(3);
 
-        Dictionary<string, int> tagWeights = new Dictionary<string, int>();
+        //Dictionary<string, int> tagWeights = new Dictionary<string, int>();
+        //TraverseTree(firstRoot, tagWeights);
+
+        //var topTags = tagWeights.OrderByDescending(kvp => kvp.Value);
+        //Console.WriteLine("Топ тегов:");
+        //foreach (var tag in topTags)
+        //{
+        //    Console.WriteLine($"{tag.Key}: {tag.Value}");
+        //}
+
+        Dictionary<string, double> tagWeights = new Dictionary<string, double>();
         TraverseTree(firstRoot, tagWeights);
 
-        var topTags = tagWeights.OrderByDescending(kvp => kvp.Value).Take(5);
-        Console.WriteLine("Топ-5 тегов:");
-        foreach (var tag in topTags)
+        var finalScores = CalculateTagProbabilities(tagWeights);
+        Console.WriteLine("\nФинальные вероятности тегов:");
+        foreach (var pair in finalScores.OrderByDescending(p => p.Value).Take(5))
         {
-            Console.WriteLine($"{tag.Key}: {tag.Value}");
+            Console.WriteLine($"{pair.Key}: {pair.Value:F2}");
         }
+
+        var topCakes = LoadCakes("data.json");
+        RecommendCakes(topCakes, finalScores);
 
         //Console.WriteLine("\nРекомендуемые торты:");
         //foreach (var cake in topCakes)
@@ -701,26 +717,113 @@ class Program
 
     }
 
-    static void TraverseTree(QuestionNode node, Dictionary<string, int> tagWeights)
+    static void TraverseTree(QuestionNode node, Dictionary<string, double> tagWeights)
     {
         if (node == null) return;
+
         Console.WriteLine(node.Question);
         Console.Write("(Да/Возможно/Нет/Не знаю): ");
         string answer = Console.ReadLine().Trim().ToLower();
 
+        double delta = answer switch
+        {
+            "да" => 1.0,
+            "возможно" => 0.5,
+            "нет" => -1.0,
+            "не знаю" => 0.0,
+            _ => 0.0
+        };
+
+        reasonablenessIndex = CalculateReasonablessIndex(node, tagWeights, delta, answer);
+
+        foreach (var tag in node.Tags)
+        {
+            if (!tagWeights.ContainsKey(tag))
+                tagWeights[tag] = 0.0;
+            tagWeights[tag] += delta;
+        }
+
         if (answer == "да" || answer == "возможно")
-        {
-            foreach (var tag in node.Tags)
-            {
-                if (!tagWeights.ContainsKey(tag))
-                    tagWeights[tag] = 0;
-                tagWeights[tag]++;
-            }
             TraverseTree(node.YesBranch, tagWeights);
-        }
         else if (answer == "нет" || answer == "не знаю")
-        {
             TraverseTree(node.NoBranch, tagWeights);
+    }
+    static Dictionary<string, double> CalculateTagProbabilities(Dictionary<string, double> tagWeights)
+    {
+        int totalTags = tagWeights.Count;
+        var result = new Dictionary<string, double>();
+
+        foreach (var pair in tagWeights)
+        {
+            double probability = (pair.Value + 1) / 2;
+            result[pair.Key] = probability;
         }
+
+        return result;
+    }
+
+    static List<Cake> LoadCakes(string path)
+    {
+        string jsonPath = "data.json";
+        var cakes = JsonConvert.DeserializeObject<List<Cake>>(File.ReadAllText(jsonPath));
+        return cakes;
+    }
+
+    static void RecommendCakes(List<Cake> cakes, Dictionary<string, double> tagProbabilities)
+    {
+        var cakeProbabilities = new Dictionary<int, double>();
+
+        foreach (var cake in cakes)
+        {
+            double score = 0;
+            foreach (var tag in cake.Tags)
+            {
+                if (tagProbabilities.TryGetValue(tag, out var prob))
+                {
+                    score += prob;
+                }
+            }
+            cakeProbabilities[cake.Id] = score / cake.Tags.Count;
+        }
+
+        PrintCakes(cakeProbabilities, cakes);
+    }
+
+    static void PrintCakes(Dictionary<int, double> cakeProbabilities, List<Cake> cakes)
+    {
+        var topCakes = cakeProbabilities.OrderByDescending(c => c.Value).Take(3);
+        Console.WriteLine("\nРекомендуемые торты:");
+        foreach (var cake in topCakes)
+        {
+            var cakeInfo = cakes.First(c => c.Id == cake.Key);
+            Console.WriteLine($"ID: {cakeInfo.Id}, Вероятность: {cake.Value:P}, Ссылка: {cakeInfo.Photo}");
+        }
+    }
+
+    static double CalculateReasonablessIndex(QuestionNode node, Dictionary<string, double> tagWeights, double delta, string answer)
+    {
+        foreach (var tag in node.Tags)
+        {
+            if (!tagWeights.ContainsKey(tag))
+                tagWeights[tag] = 0.0;
+            tagWeights[tag] += delta;
+
+            if (tag == "luxurious" && (answer == "да" || answer == "возможно"))
+            {
+                reasonablenessIndex += 10;
+
+            }
+            if (tag == "detailed_decor" && (answer == "да" || answer == "возможно"))
+            {
+                reasonablenessIndex += 5;
+            }
+            if (tag == "minimalism" && (answer == "да" || answer == "возможно"))
+            {
+                reasonablenessIndex = 7;
+
+            }
+
+        }
+        return reasonablenessIndex;
     }
 }
